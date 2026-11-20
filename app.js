@@ -3,32 +3,71 @@ const MALE_AVATARS = [
     id: "m1",
     name: "Mateo Nocturno",
     imgSrc: "./avatares-masculinos/mateo.png",
-    mouthX: 0,
-    mouthY: 54,
-    mouthWidth: 14,
-    mouthMaxOpen: 6.5,
-    lipColor: "rgba(186, 118, 102, 0.58)",
+    mouthX: 0, mouthY: 54, mouthWidth: 14, mouthMaxOpen: 6.5, lipColor: "rgba(186, 118, 102, 0.58)",
     skin: "#e0ac8b", hair: "#1f2937", shirt: "#1e3a8a", style: "short", beard: false, glasses: false, accent: "#60a5fa"
   },
   {
     id: "m2",
     name: "Lucas Barbudo",
     imgSrc: "./avatares-masculinos/lucas.png",
-    mouthX: 0,
-    mouthY: 56,
-    mouthWidth: 15,
-    mouthMaxOpen: 6.5,
-    lipColor: "rgba(165, 96, 82, 0.62)",
+    mouthX: 0, mouthY: 56, mouthWidth: 15, mouthMaxOpen: 6.5, lipColor: "rgba(165, 96, 82, 0.62)",
     skin: "#d19a78", hair: "#3f2314", shirt: "#374151", style: "messy", beard: true, glasses: false, accent: "#f59e0b"
   },
-  { id: "m3", name: "Tomás Lentes", imgSrc: null, skin: "#f1c7a9", hair: "#4b3621", shirt: "#065f46", style: "side", beard: false, glasses: true, accent: "#34d399" },
-  { id: "m4", name: "Ramiro Punk", imgSrc: null, skin: "#e6b89c", hair: "#991b1b", shirt: "#18181b", style: "spiky", beard: false, glasses: false, accent: "#f87171" },
-  { id: "m5", name: "Bruno Calmo", imgSrc: null, skin: "#8d5b42", hair: "#111827", shirt: "#78350f", style: "short", beard: true, glasses: false, accent: "#fbbf24" },
-  { id: "m6", name: "Dante Bohemio", imgSrc: null, skin: "#eac0a2", hair: "#27272a", shirt: "#4c1d95", style: "long", beard: true, glasses: true, accent: "#c084fc" },
-  { id: "m7", name: "Franco Urbano", imgSrc: null, skin: "#c68b67", hair: "#171717", shirt: "#9a3412", style: "cap", beard: false, glasses: false, accent: "#fb923c" },
-  { id: "m8", name: "Simón Cínico", imgSrc: null, skin: "#f3cdb3", hair: "#52525b", shirt: "#1f2937", style: "side", beard: false, glasses: true, accent: "#94a3b8" },
-  { id: "m9", name: "Nehuén Surfer", imgSrc: null, skin: "#d69e7c", hair: "#b45309", shirt: "#0369a1", style: "messy", beard: false, glasses: false, accent: "#38bdf8" },
-  { id: "m10", name: "Vasco Sabio", imgSrc: null, skin: "#e4b496", hair: "#d1d5db", shirt: "#312e81", style: "short", beard: true, glasses: true, accent: "#a5b4fc" }
+  {
+    id: "m3",
+    name: "Tomás Lentes",
+    imgSrc: "./avatares-masculinos/tomas.jpg.png",
+    mouthX: 0, mouthY: 55, mouthWidth: 14, mouthMaxOpen: 6.5, lipColor: "rgba(186, 118, 102, 0.58)",
+    skin: "#f1c7a9", hair: "#4b3621", shirt: "#065f46", style: "side", beard: false, glasses: true, accent: "#34d399"
+  },
+  {
+    id: "m4",
+    name: "Ramiro Punk",
+    imgSrc: "./avatares-masculinos/ramiro.jpg.png",
+    mouthX: 0, mouthY: 55, mouthWidth: 14, mouthMaxOpen: 6.5, lipColor: "rgba(186, 118, 102, 0.58)",
+    skin: "#e6b89c", hair: "#991b1b", shirt: "#18181b", style: "spiky", beard: false, glasses: false, accent: "#f87171"
+  },
+  {
+    id: "m5",
+    name: "Bruno Calmo",
+    imgSrc: "./avatares-masculinos/bruno.jpg.png",
+    mouthX: 0, mouthY: 55, mouthWidth: 14, mouthMaxOpen: 6.5, lipColor: "rgba(175, 106, 90, 0.60)",
+    skin: "#8d5b42", hair: "#111827", shirt: "#78350f", style: "short", beard: true, glasses: false, accent: "#fbbf24"
+  },
+  {
+    id: "m6",
+    name: "Dante Bohemio",
+    imgSrc: "./avatares-masculinos/dante.jpg.png",
+    mouthX: 0, mouthY: 55, mouthWidth: 14, mouthMaxOpen: 6.5, lipColor: "rgba(175, 106, 90, 0.60)",
+    skin: "#eac0a2", hair: "#27272a", shirt: "#4c1d95", style: "long", beard: true, glasses: true, accent: "#c084fc"
+  },
+  {
+    id: "m7",
+    name: "Franco Urbano",
+    imgSrc: "./avatares-masculinos/franco.jpg.png",
+    mouthX: 0, mouthY: 55, mouthWidth: 14, mouthMaxOpen: 6.5, lipColor: "rgba(175, 106, 90, 0.60)",
+    skin: "#c68b67", hair: "#171717", shirt: "#9a3412", style: "cap", beard: false, glasses: false, accent: "#fb923c"
+  },
+  {
+    id: "m8",
+    name: "Simón Cínico",
+    imgSrc: "./avatares-masculinos/simon.jpg.png",
+    mouthX: 0, mouthY: 55, mouthWidth: 14, mouthMaxOpen: 6.5, lipColor: "rgba(186, 118, 102, 0.58)",
+    skin: "#f3cdb3", hair: "#52525b", shirt: "#1f2937", style: "side", beard: false, glasses: true, accent: "#94a3b8"
+  },
+  {
+    id: "m9",
+    name: "Nehuén Surfer",
+    imgSrc: "./avatares-masculinos/nehuen.j.png",
+    mouthX: 0, mouthY: 55, mouthWidth: 14, mouthMaxOpen: 6.5, lipColor: "rgba(186, 118, 102, 0.58)",
+    skin: "#d69e7c", hair: "#b45309", shirt: "#0369a1", style: "messy", beard: false, glasses: false, accent: "#38bdf8"
+  },
+  {
+    id: "m10",
+    name: "Vasco Sabio",
+    imgSrc: "./avatares-masculinos/vasco.jpg.png",
+    mouthX: 0, mouthY: 55, mouthWidth: 14, mouthMaxOpen: 6.5, lipColor: "rgba(175, 106, 90, 0.60)",
+    skin: "#e4b496", hair: "#d1d5db", shirt: "#312e81", style: "short", beard: true, glasses: true, accent: "#a5b4fc" }
 ];
 
 const FEMALE_AVATARS = [
@@ -149,8 +188,8 @@ function renderBgChoices() {
     btn.addEventListener("click", () => { selectedBg = bg; renderBgChoices(); });
     bgGrid.appendChild(btn);
   });
-   }
-inputName.value = profile.name || "";
+    }
+   inputName.value = profile.name || "";
 inputLink.value = profile.link || "";
 updateBadge();
 renderAvatarChoices();
@@ -281,8 +320,8 @@ function getVolume() {
   let total = 0;
   for (let i = 0; i < dataArray.length; i++) total += dataArray[i];
   return total / dataArray.length;
-      }
-                    function drawRealisticMouth(av, vol) {
+}
+  function drawRealisticMouth(av, vol) {
   const mx = av.mouthX ?? 0;
   const my = av.mouthY ?? 54;
   const mw = av.mouthWidth ?? 14;
@@ -397,4 +436,3 @@ btnStop.addEventListener("click", () => {
   if (mediaRecorder && mediaRecorder.state !== "inactive") mediaRecorder.stop();
   btnRec.disabled = false; btnStop.disabled = true;
 });
-      
