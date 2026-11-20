@@ -1,27 +1,27 @@
 const MALE_AVATARS = [
-  { id: "m1", name: "Mateo Nocturno", skin: "#e0ac8b", hair: "#1f2937", shirt: "#1e3a8a", style: "short", beard: false, glasses: false, accent: "#60a5fa" },
-  { id: "m2", name: "Lucas Barbudo", skin: "#d19a78", hair: "#3f2314", shirt: "#374151", style: "messy", beard: true, glasses: false, accent: "#f59e0b" },
-  { id: "m3", name: "Tomás Lentes", skin: "#f1c7a9", hair: "#4b3621", shirt: "#065f46", style: "side", beard: false, glasses: true, accent: "#34d399" },
-  { id: "m4", name: "Ramiro Punk", skin: "#e6b89c", hair: "#991b1b", shirt: "#18181b", style: "spiky", beard: false, glasses: false, accent: "#f87171" },
-  { id: "m5", name: "Bruno Calmo", skin: "#8d5b42", hair: "#111827", shirt: "#78350f", style: "short", beard: true, glasses: false, accent: "#fbbf24" },
-  { id: "m6", name: "Dante Bohemio", skin: "#eac0a2", hair: "#27272a", shirt: "#4c1d95", style: "long", beard: true, glasses: true, accent: "#c084fc" },
-  { id: "m7", name: "Franco urbano", skin: "#c68b67", hair: "#171717", shirt: "#9a3412", style: "cap", beard: false, glasses: false, accent: "#fb923c" },
-  { id: "m8", name: "Simón Cínico", skin: "#f3cdb3", hair: "#52525b", shirt: "#1f2937", style: "side", beard: false, glasses: true, accent: "#94a3b8" },
-  { id: "m9", name: "Nehuén Surfer", skin: "#d69e7c", hair: "#b45309", shirt: "#0369a1", style: "messy", beard: false, glasses: false, accent: "#38bdf8" },
-  { id: "m10", name: "Vasco Sabio", skin: "#e4b496", hair: "#d1d5db", shirt: "#312e81", style: "short", beard: true, glasses: true, accent: "#a5b4fc" }
+  { id: "m1", name: "Mateo Nocturno", imgSrc: "./retouch_2026112017085652.png", skin: "#e0ac8b", hair: "#1f2937", shirt: "#1e3a8a", style: "short", beard: false, glasses: false, accent: "#60a5fa" },
+  { id: "m2", name: "Lucas Barbudo", imgSrc: null, skin: "#d19a78", hair: "#3f2314", shirt: "#374151", style: "messy", beard: true, glasses: false, accent: "#f59e0b" },
+  { id: "m3", name: "Tomás Lentes", imgSrc: null, skin: "#f1c7a9", hair: "#4b3621", shirt: "#065f46", style: "side", beard: false, glasses: true, accent: "#34d399" },
+  { id: "m4", name: "Ramiro Punk", imgSrc: null, skin: "#e6b89c", hair: "#991b1b", shirt: "#18181b", style: "spiky", beard: false, glasses: false, accent: "#f87171" },
+  { id: "m5", name: "Bruno Calmo", imgSrc: null, skin: "#8d5b42", hair: "#111827", shirt: "#78350f", style: "short", beard: true, glasses: false, accent: "#fbbf24" },
+  { id: "m6", name: "Dante Bohemio", imgSrc: null, skin: "#eac0a2", hair: "#27272a", shirt: "#4c1d95", style: "long", beard: true, glasses: true, accent: "#c084fc" },
+  { id: "m7", name: "Franco Urbano", imgSrc: null, skin: "#c68b67", hair: "#171717", shirt: "#9a3412", style: "cap", beard: false, glasses: false, accent: "#fb923c" },
+  { id: "m8", name: "Simón Cínico", imgSrc: null, skin: "#f3cdb3", hair: "#52525b", shirt: "#1f2937", style: "side", beard: false, glasses: true, accent: "#94a3b8" },
+  { id: "m9", name: "Nehuén Surfer", imgSrc: null, skin: "#d69e7c", hair: "#b45309", shirt: "#0369a1", style: "messy", beard: false, glasses: false, accent: "#38bdf8" },
+  { id: "m10", name: "Vasco Sabio", imgSrc: null, skin: "#e4b496", hair: "#d1d5db", shirt: "#312e81", style: "short", beard: true, glasses: true, accent: "#a5b4fc" }
 ];
 
 const FEMALE_AVATARS = [
-  { id: "f1", name: "Valeria Fuego", skin: "#f2c6a7", hair: "#7c2d12", shirt: "#881337", style: "long", glasses: false, blush: true, accent: "#fb7185" },
-  { id: "f2", name: "Camila Lentes", skin: "#e3b292", hair: "#1f2937", shirt: "#1e40af", style: "bob", glasses: true, blush: false, accent: "#60a5fa" },
-  { id: "f3", name: "Sofía Luna", skin: "#f5d0b5", hair: "#d97706", shirt: "#4c1d95", style: "ponytail", glasses: false, blush: true, accent: "#c084fc" },
-  { id: "f4", name: "Abril Rebelde", skin: "#d9a282", hair: "#111827", shirt: "#18181b", style: "short", glasses: false, blush: false, accent: "#f87171" },
-  { id: "f5", name: "Micaela Tierra", skin: "#8d5b42", hair: "#18181b", shirt: "#065f46", style: "curly", glasses: false, blush: true, accent: "#34d399" },
-  { id: "f6", name: "Elena Clásica", skin: "#ecc1a3", hair: "#451a03", shirt: "#78350f", style: "long", glasses: true, blush: false, accent: "#fbbf24" },
-  { id: "f7", name: "Zoe Eléctrica", skin: "#f0c3a5", hair: "#0284c7", shirt: "#1e293b", style: "bob", glasses: false, blush: true, accent: "#38bdf8" },
-  { id: "f8", name: "Renata Filósofa", skin: "#dfad8d", hair: "#27272a", shirt: "#581c87", style: "ponytail", glasses: true, blush: false, accent: "#e879f9" },
-  { id: "f9", name: "Paz Brisa", skin: "#c88d6a", hair: "#3f2314", shirt: "#9a3412", style: "curly", glasses: false, blush: true, accent: "#fb923c" },
-  { id: "f10", name: "Ágata Silver", skin: "#eed0b9", hair: "#cbd5e1", shirt: "#1f2937", style: "short", glasses: true, blush: false, accent: "#cbd5e1" }
+  { id: "f1", name: "Valeria Fuego", imgSrc: null, skin: "#f2c6a7", hair: "#7c2d12", shirt: "#881337", style: "long", glasses: false, blush: true, accent: "#fb7185" },
+  { id: "f2", name: "Camila Lentes", imgSrc: null, skin: "#e3b292", hair: "#1f2937", shirt: "#1e40af", style: "bob", glasses: true, blush: false, accent: "#60a5fa" },
+  { id: "f3", name: "Sofía Luna", imgSrc: null, skin: "#f5d0b5", hair: "#d97706", shirt: "#4c1d95", style: "ponytail", glasses: false, blush: true, accent: "#c084fc" },
+  { id: "f4", name: "Abril Rebelde", imgSrc: null, skin: "#d9a282", hair: "#111827", shirt: "#18181b", style: "short", glasses: false, blush: false, accent: "#f87171" },
+  { id: "f5", name: "Micaela Tierra", imgSrc: null, skin: "#8d5b42", hair: "#18181b", shirt: "#065f46", style: "curly", glasses: false, blush: true, accent: "#34d399" },
+  { id: "f6", name: "Elena Clásica", imgSrc: null, skin: "#ecc1a3", hair: "#451a03", shirt: "#78350f", style: "long", glasses: true, blush: false, accent: "#fbbf24" },
+  { id: "f7", name: "Zoe Eléctrica", imgSrc: null, skin: "#f0c3a5", hair: "#0284c7", shirt: "#1e293b", style: "bob", glasses: false, blush: true, accent: "#38bdf8" },
+  { id: "f8", name: "Renata Filósofa", imgSrc: null, skin: "#dfad8d", hair: "#27272a", shirt: "#581c87", style: "ponytail", glasses: true, blush: false, accent: "#e879f9" },
+  { id: "f9", name: "Paz Brisa", imgSrc: null, skin: "#c88d6a", hair: "#3f2314", shirt: "#9a3412", style: "curly", glasses: false, blush: true, accent: "#fb923c" },
+  { id: "f10", name: "Ágata Silver", imgSrc: null, skin: "#eed0b9", hair: "#cbd5e1", shirt: "#1f2937", style: "short", glasses: true, blush: false, accent: "#cbd5e1" }
 ];
 
 const BACKGROUNDS = [
@@ -36,6 +36,17 @@ const BACKGROUNDS = [
   { id: "neon", name: "Bar neón underground", type: "neon" },
   { id: "desierto", name: "Horizonte árido", type: "desert" }
 ];
+
+// Precarga de imágenes PNG configuradas
+const loadedImages = {};
+[...MALE_AVATARS, ...FEMALE_AVATARS].forEach((av) => {
+  if (av.imgSrc) {
+    const img = new Image();
+    img.src = av.imgSrc;
+    loadedImages[av.id] = { img, ready: false };
+    img.onload = () => { loadedImages[av.id].ready = true; };
+  }
+});
 
 const stepProfile = document.getElementById("stepProfile");
 const stepSetup = document.getElementById("stepSetup");
@@ -171,7 +182,6 @@ btnEditSetup.addEventListener("click", () => {
   showStep("setup");
 });
 
-// IndexedDB para guardar videos subidos en la app
 function openDB() {
   return new Promise((resolve, reject) => {
     const req = indexedDB.open("FilosofiaSinFiltroDB", 1);
@@ -299,7 +309,6 @@ function drawBackground(bg) {
     ctx.fillStyle = "#3f2a20";
     ctx.fillRect(0, horizon, w, h - horizon);
 
-    // Estufa a leña lateral con llama animada
     const fx = w * 0.82;
     const fy = horizon + 15;
     ctx.fillStyle = "#18181b";
@@ -337,14 +346,41 @@ function drawBackground(bg) {
   }
 }
 
-function drawDetailedAvatar(av, vol, isBlinking) {
+function drawAvatar(av, vol, isBlinking) {
   const w = canvas.width;
   const h = canvas.height;
   const headBob = Math.min(8, vol * 0.14) + Math.sin(tick * 0.06) * 2.5;
+  const tilt = Math.sin(tick * 0.04) * 0.03;
+
+  // Si tiene imagen PNG cargada y lista, la dibuja con movimiento suave
+  const imgEntry = loadedImages[av.id];
+  if (imgEntry && imgEntry.ready) {
+    const drawW = 240;
+    const drawH = 320;
+    const x = w * 0.46 - drawW / 2;
+    const y = h - drawH + 14 + headBob;
+
+    ctx.save();
+    ctx.translate(x + drawW / 2, y + drawH / 2);
+    ctx.rotate(tilt);
+    ctx.drawImage(imgEntry.img, -drawW / 2, -drawH / 2, drawW, drawH);
+
+    // Boca reactiva superpuesta suavemente sobre el retrato cuando habla
+    const mouthOpen = Math.min(14, Math.max(0, (vol - 12) * 0.35));
+    if (mouthOpen > 1.5) {
+      ctx.fillStyle = "rgba(95, 25, 25, 0.78)";
+      ctx.beginPath();
+      ctx.ellipse(0, 34, 11, mouthOpen, 0, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+    return;
+  }
+
+  // Respaldo dibujado para los avatares que aún no tienen PNG subido
   const cx = w * 0.44;
   const cy = h * 0.54 + headBob;
 
-  // Cabello largo trasero si aplica
   if (av.style === "long" || av.style === "curly" || av.style === "ponytail") {
     ctx.fillStyle = av.hair;
     ctx.beginPath();
@@ -352,29 +388,24 @@ function drawDetailedAvatar(av, vol, isBlinking) {
     ctx.fill();
   }
 
-  // Torso y hombros con sombra
   ctx.fillStyle = av.shirt;
   ctx.beginPath();
   ctx.roundRect(cx - 92, cy + 88, 184, 140, 48);
   ctx.fill();
 
-  // Cuello
   ctx.fillStyle = av.skin;
   ctx.fillRect(cx - 22, cy + 68, 44, 30);
 
-  // Cabeza estilizada (proporción chibi detallada)
   ctx.fillStyle = av.skin;
   ctx.beginPath();
   ctx.ellipse(cx, cy, 86, 94, 0, 0, Math.PI * 2);
   ctx.fill();
 
-  // Sombra lateral sutil en el rostro
   ctx.fillStyle = "rgba(0,0,0,0.10)";
   ctx.beginPath();
   ctx.ellipse(cx + 38, cy + 4, 46, 86, 0, -Math.PI / 2, Math.PI / 2);
   ctx.fill();
 
-  // Rubor opcional
   if (av.blush) {
     ctx.fillStyle = "rgba(244, 63, 94, 0.28)";
     ctx.beginPath();
@@ -383,7 +414,6 @@ function drawDetailedAvatar(av, vol, isBlinking) {
     ctx.fill();
   }
 
-  // Ojos
   if (isBlinking) {
     ctx.strokeStyle = "#111827";
     ctx.lineWidth = 4;
@@ -413,7 +443,6 @@ function drawDetailedAvatar(av, vol, isBlinking) {
     ctx.fill();
   }
 
-  // Cejas
   ctx.strokeStyle = av.hair;
   ctx.lineWidth = 4.5;
   ctx.beginPath();
@@ -423,14 +452,12 @@ function drawDetailedAvatar(av, vol, isBlinking) {
   ctx.lineTo(cx + 52, cy - 22);
   ctx.stroke();
 
-  // Nariz sutil
   ctx.strokeStyle = "rgba(0,0,0,0.35)";
   ctx.lineWidth = 2.5;
   ctx.beginPath();
   ctx.arc(cx, cy + 18, 5, 0.2, Math.PI - 0.2);
   ctx.stroke();
 
-  // Barba opcional (masculinos)
   if (av.beard) {
     ctx.fillStyle = av.hair;
     ctx.globalAlpha = 0.72;
@@ -440,14 +467,12 @@ function drawDetailedAvatar(av, vol, isBlinking) {
     ctx.globalAlpha = 1;
   }
 
-  // Boca sincronizada con la voz
   const mouthOpen = Math.min(24, Math.max(3, vol * 0.65));
   ctx.fillStyle = "#7f1d1d";
   ctx.beginPath();
   ctx.ellipse(cx, cy + 48, 15 + mouthOpen * 0.25, mouthOpen, 0, 0, Math.PI * 2);
   ctx.fill();
 
-  // Lentes opcionales
   if (av.glasses) {
     ctx.strokeStyle = av.accent;
     ctx.lineWidth = 3;
@@ -459,7 +484,6 @@ function drawDetailedAvatar(av, vol, isBlinking) {
     ctx.stroke();
   }
 
-  // Cabello superior / gorra
   if (av.style === "cap") {
     ctx.fillStyle = av.accent;
     ctx.beginPath();
@@ -479,7 +503,7 @@ function loop() {
   const vol = getVolume();
   const isBlinking = tick % 170 < 7;
   drawBackground(selectedBg);
-  drawDetailedAvatar(selectedAvatar, vol, isBlinking);
+  drawAvatar(selectedAvatar, vol, isBlinking);
   requestAnimationFrame(loop);
 }
 
