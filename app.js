@@ -1,5 +1,20 @@
 const MALE_AVATARS = [
-  { id: "m1", name: "Mateo Nocturno", imgSrc: "./retouch_2026112017085652.png", skin: "#e0ac8b", hair: "#1f2937", shirt: "#1e3a8a", style: "short", beard: false, glasses: false, accent: "#60a5fa" },
+  {
+    id: "m1",
+    name: "Mateo Nocturno",
+    imgSrc: "./retouch_2026112017085652.png",
+    mouthX: 0,
+    mouthY: 54,
+    mouthWidth: 13,
+    mouthMaxOpen: 9,
+    skin: "#e0ac8b",
+    hair: "#1f2937",
+    shirt: "#1e3a8a",
+    style: "short",
+    beard: false,
+    glasses: false,
+    accent: "#60a5fa"
+  },
   { id: "m2", name: "Lucas Barbudo", imgSrc: null, skin: "#d19a78", hair: "#3f2314", shirt: "#374151", style: "messy", beard: true, glasses: false, accent: "#f59e0b" },
   { id: "m3", name: "Tomás Lentes", imgSrc: null, skin: "#f1c7a9", hair: "#4b3621", shirt: "#065f46", style: "side", beard: false, glasses: true, accent: "#34d399" },
   { id: "m4", name: "Ramiro Punk", imgSrc: null, skin: "#e6b89c", hair: "#991b1b", shirt: "#18181b", style: "spiky", beard: false, glasses: false, accent: "#f87171" },
@@ -37,7 +52,6 @@ const BACKGROUNDS = [
   { id: "desierto", name: "Horizonte árido", type: "desert" }
 ];
 
-// Precarga de imágenes PNG configuradas
 const loadedImages = {};
 [...MALE_AVATARS, ...FEMALE_AVATARS].forEach((av) => {
   if (av.imgSrc) {
@@ -134,9 +148,8 @@ function renderBgChoices() {
     });
     bgGrid.appendChild(btn);
   });
-}
-
-inputName.value = profile.name || "";
+  }
+  inputName.value = profile.name || "";
 inputLink.value = profile.link || "";
 updateBadge();
 renderAvatarChoices();
@@ -279,9 +292,8 @@ function getVolume() {
   let total = 0;
   for (let i = 0; i < dataArray.length; i++) total += dataArray[i];
   return total / dataArray.length;
-}
-
-function drawBackground(bg) {
+      }
+  function drawBackground(bg) {
   const w = canvas.width;
   const h = canvas.height;
   const horizon = h * 0.64;
@@ -352,7 +364,6 @@ function drawAvatar(av, vol, isBlinking) {
   const headBob = Math.min(8, vol * 0.14) + Math.sin(tick * 0.06) * 2.5;
   const tilt = Math.sin(tick * 0.04) * 0.03;
 
-  // Si tiene imagen PNG cargada y lista, la dibuja con movimiento suave
   const imgEntry = loadedImages[av.id];
   if (imgEntry && imgEntry.ready) {
     const drawW = 240;
@@ -360,24 +371,41 @@ function drawAvatar(av, vol, isBlinking) {
     const x = w * 0.46 - drawW / 2;
     const y = h - drawH + 14 + headBob;
 
+    const mx = av.mouthX ?? 0;
+    const my = av.mouthY ?? 54;
+    const mw = av.mouthWidth ?? 13;
+    const maxOpen = av.mouthMaxOpen ?? 9;
+
     ctx.save();
     ctx.translate(x + drawW / 2, y + drawH / 2);
     ctx.rotate(tilt);
     ctx.drawImage(imgEntry.img, -drawW / 2, -drawH / 2, drawW, drawH);
 
-    // Boca reactiva superpuesta suavemente sobre el retrato cuando habla
-    const mouthOpen = Math.min(14, Math.max(0, (vol - 12) * 0.35));
-    if (mouthOpen > 1.5) {
-      ctx.fillStyle = "rgba(95, 25, 25, 0.78)";
+    const normVol = Math.max(0, (vol - 10) / 45);
+    const openH = Math.min(maxOpen, normVol * maxOpen);
+
+    if (openH > 0.8) {
+      const mouthGrad = ctx.createRadialGradient(mx, my, 1, mx, my, Math.max(mw, openH * 1.4));
+      mouthGrad.addColorStop(0, "rgba(38, 10, 12, 0.92)");
+      mouthGrad.addColorStop(0.75, "rgba(88, 24, 28, 0.85)");
+      mouthGrad.addColorStop(1, "rgba(88, 24, 28, 0)");
+
+      ctx.fillStyle = mouthGrad;
       ctx.beginPath();
-      ctx.ellipse(0, 34, 11, mouthOpen, 0, 0, Math.PI * 2);
+      ctx.ellipse(mx, my, mw, openH, 0, 0, Math.PI * 2);
       ctx.fill();
+
+      ctx.strokeStyle = "rgba(215, 145, 125, 0.55)";
+      ctx.lineWidth = 1.6;
+      ctx.beginPath();
+      ctx.ellipse(mx, my + openH * 0.35, mw * 0.88, openH * 0.65, 0, 0, Math.PI);
+      ctx.stroke();
     }
+
     ctx.restore();
     return;
   }
 
-  // Respaldo dibujado para los avatares que aún no tienen PNG subido
   const cx = w * 0.44;
   const cy = h * 0.54 + headBob;
 
@@ -537,3 +565,4 @@ btnStop.addEventListener("click", () => {
   btnRec.disabled = false;
   btnStop.disabled = true;
 });
+      
