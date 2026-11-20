@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Filosofía Sin Filtro - Chibi Cam</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <h1>Filosofía Sin Filtro</h1>
+    <p class="sub">Modo Avatar Chibi en tiempo real</p>
+
+    <div class="stage">
+      <video id="cam" autoplay playsinline muted></video>
+      <canvas id="canvas" width="360" height="480"></canvas>
+    </div>
+
+    <div class="controls">
+      <button id="btnStart">1. Encender Cámara y Mic</button>
+      <button id="btnRec" disabled>2. Grabar Video</button>
+      <button id="btnStop" disabled>3. Detener y Guardar</button>
+    </div>
+
+    <div id="status">Listo para empezar.</div>
+    <a id="downloadLink" class="download" style="display:none;">Descargar Video (.webm)</a>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
