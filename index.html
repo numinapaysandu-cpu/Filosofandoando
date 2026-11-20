@@ -3,27 +3,75 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Filosofía Sin Filtro - Chibi Cam</title>
+  <title>Filosofía Sin Filtro - Estudio</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <main class="app">
-    <h1>Filosofía Sin Filtro</h1>
-    <p class="sub">Modo Avatar Chibi en tiempo real</p>
+    <header class="topbar">
+      <h1>Filosofía Sin Filtro</h1>
+      <span id="badgeUser" class="badge">Sin perfil</span>
+    </header>
 
-    <div class="stage">
-      <video id="cam" autoplay playsinline muted></video>
-      <canvas id="canvas" width="360" height="480"></canvas>
-    </div>
+    <!-- PASO 1: PERFIL -->
+    <section id="stepProfile" class="card">
+      <h2>1. Tu identidad</h2>
+      <p class="hint">Ingresá cómo querés firmar y tu link de usuario antes de pasar al estudio.</p>
 
-    <div class="controls">
-      <button id="btnStart">1. Encender Cámara y Mic</button>
-      <button id="btnRec" disabled>2. Grabar Video</button>
-      <button id="btnStop" disabled>3. Detener y Guardar</button>
-    </div>
+      <label for="inputName">Nombre o apodo</label>
+      <input id="inputName" type="text" placeholder="Ej: El Pensador Crudo" />
 
-    <div id="status">Listo para empezar.</div>
-    <a id="downloadLink" class="download" style="display:none;">Descargar Video (.webm)</a>
+      <label for="inputLink">Link de usuario o handle</label>
+      <input id="inputLink" type="text" placeholder="Ej: @pensador_libre o https://tusitio.uy/vos" />
+
+      <button id="btnGoSetup" class="btn-primary">Continuar a Avatar y Fondo</button>
+    </section>
+
+    <!-- PASO 2: AVATAR Y FONDO -->
+    <section id="stepSetup" class="card hidden">
+      <h2>2. Elegí tu avatar y escenario</h2>
+
+      <div class="gender-switch">
+        <button id="tabMale" class="tab active" type="button">10 Masculinos</button>
+        <button id="tabFemale" class="tab" type="button">10 Femeninos</button>
+      </div>
+
+      <div id="avatarGrid" class="grid-avatars"></div>
+
+      <h3 class="sub-title">Elegí el fondo (10 opciones)</h3>
+      <div id="bgGrid" class="grid-bgs"></div>
+
+      <div class="row-actions">
+        <button id="btnBackProfile" class="btn-secondary" type="button">Volver</button>
+        <button id="btnEnterStudio" class="btn-primary" type="button">Ir al Estudio</button>
+      </div>
+    </section>
+
+    <!-- PASO 3: ESTUDIO Y MURO -->
+    <section id="stepStudio" class="hidden">
+      <div class="studio-bar">
+        <span id="studioMeta">Avatar y fondo listos</span>
+        <button id="btnEditSetup" class="btn-mini" type="button">Cambiar</button>
+      </div>
+
+      <div class="stage">
+        <video id="cam" autoplay playsinline muted></video>
+        <canvas id="canvas" width="360" height="480"></canvas>
+      </div>
+
+      <div class="controls">
+        <button id="btnStart" class="btn-primary" type="button">Encender Cámara y Mic</button>
+        <button id="btnRec" class="btn-rec" type="button" disabled>Grabar Video</button>
+        <button id="btnStop" class="btn-stop" type="button" disabled>Detener y Subir a la App</button>
+      </div>
+
+      <div id="status" class="status">Paso 1: encendé cámara y micrófono.</div>
+
+      <section class="feed-section">
+        <h2>Videos subidos en la app</h2>
+        <div id="feedList" class="feed-list"></div>
+      </section>
+    </section>
   </main>
 
   <script src="app.js"></script>
