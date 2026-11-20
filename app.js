@@ -2,20 +2,25 @@ const MALE_AVATARS = [
   {
     id: "m1",
     name: "Mateo Nocturno",
-    imgSrc: "./retouch_2026112017085652.png",
+    imgSrc: "./avatares-masculinos/mateo.png",
     mouthX: 0,
     mouthY: 54,
-    mouthWidth: 13,
-    mouthMaxOpen: 9,
-    skin: "#e0ac8b",
-    hair: "#1f2937",
-    shirt: "#1e3a8a",
-    style: "short",
-    beard: false,
-    glasses: false,
-    accent: "#60a5fa"
+    mouthWidth: 14,
+    mouthMaxOpen: 6.5,
+    lipColor: "rgba(186, 118, 102, 0.58)",
+    skin: "#e0ac8b", hair: "#1f2937", shirt: "#1e3a8a", style: "short", beard: false, glasses: false, accent: "#60a5fa"
   },
-  { id: "m2", name: "Lucas Barbudo", imgSrc: null, skin: "#d19a78", hair: "#3f2314", shirt: "#374151", style: "messy", beard: true, glasses: false, accent: "#f59e0b" },
+  {
+    id: "m2",
+    name: "Lucas Barbudo",
+    imgSrc: "./avatares-masculinos/lucas.png",
+    mouthX: 0,
+    mouthY: 56,
+    mouthWidth: 15,
+    mouthMaxOpen: 6.5,
+    lipColor: "rgba(165, 96, 82, 0.62)",
+    skin: "#d19a78", hair: "#3f2314", shirt: "#374151", style: "messy", beard: true, glasses: false, accent: "#f59e0b"
+  },
   { id: "m3", name: "Tomás Lentes", imgSrc: null, skin: "#f1c7a9", hair: "#4b3621", shirt: "#065f46", style: "side", beard: false, glasses: true, accent: "#34d399" },
   { id: "m4", name: "Ramiro Punk", imgSrc: null, skin: "#e6b89c", hair: "#991b1b", shirt: "#18181b", style: "spiky", beard: false, glasses: false, accent: "#f87171" },
   { id: "m5", name: "Bruno Calmo", imgSrc: null, skin: "#8d5b42", hair: "#111827", shirt: "#78350f", style: "short", beard: true, glasses: false, accent: "#fbbf24" },
@@ -40,16 +45,16 @@ const FEMALE_AVATARS = [
 ];
 
 const BACKGROUNDS = [
-  { id: "playa", name: "Playa al atardecer", type: "beach" },
-  { id: "living_estufa", name: "Living con estufa", type: "fireplace" },
-  { id: "estudio_noche", name: "Estudio nocturno", type: "studio" },
-  { id: "biblioteca", name: "Biblioteca oscura", type: "library" },
-  { id: "terraza", name: "Terraza con brisa", type: "terrace" },
-  { id: "lluvia", name: "Calle con lluvia", type: "rain" },
-  { id: "cafe", name: "Café de madrugada", type: "cafe" },
-  { id: "montana", name: "Cumbre andina", type: "mountain" },
-  { id: "neon", name: "Bar neón underground", type: "neon" },
-  { id: "desierto", name: "Horizonte árido", type: "desert" }
+  { id: "playa", name: "Playa al atardecer", type: "beach", imgSrc: null },
+  { id: "living_estufa", name: "Living con estufa", type: "fireplace", imgSrc: null },
+  { id: "estudio_noche", name: "Estudio nocturno", type: "studio", imgSrc: null },
+  { id: "biblioteca", name: "Biblioteca oscura", type: "library", imgSrc: null },
+  { id: "terraza", name: "Terraza con brisa", type: "terrace", imgSrc: null },
+  { id: "lluvia", name: "Calle con lluvia", type: "rain", imgSrc: null },
+  { id: "cafe", name: "Café de madrugada", type: "cafe", imgSrc: null },
+  { id: "montana", name: "Cumbre andina", type: "mountain", imgSrc: null },
+  { id: "neon", name: "Bar neón underground", type: "neon", imgSrc: null },
+  { id: "desierto", name: "Horizonte árido", type: "desert", imgSrc: null }
 ];
 
 const loadedImages = {};
@@ -62,24 +67,31 @@ const loadedImages = {};
   }
 });
 
+const loadedBgImages = {};
+BACKGROUNDS.forEach((bg) => {
+  if (bg.imgSrc) {
+    const img = new Image();
+    img.src = bg.imgSrc;
+    loadedBgImages[bg.id] = { img, ready: false };
+    img.onload = () => { loadedBgImages[bg.id].ready = true; };
+  }
+});
+
 const stepProfile = document.getElementById("stepProfile");
 const stepSetup = document.getElementById("stepSetup");
 const stepStudio = document.getElementById("stepStudio");
 const badgeUser = document.getElementById("badgeUser");
-
 const inputName = document.getElementById("inputName");
 const inputLink = document.getElementById("inputLink");
 const btnGoSetup = document.getElementById("btnGoSetup");
 const btnBackProfile = document.getElementById("btnBackProfile");
 const btnEnterStudio = document.getElementById("btnEnterStudio");
 const btnEditSetup = document.getElementById("btnEditSetup");
-
 const tabMale = document.getElementById("tabMale");
 const tabFemale = document.getElementById("tabFemale");
 const avatarGrid = document.getElementById("avatarGrid");
 const bgGrid = document.getElementById("bgGrid");
 const studioMeta = document.getElementById("studioMeta");
-
 const video = document.getElementById("cam");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
@@ -93,7 +105,6 @@ let profile = JSON.parse(localStorage.getItem("fsf_profile") || '{"name":"","lin
 let currentGender = "male";
 let selectedAvatar = MALE_AVATARS[0];
 let selectedBg = BACKGROUNDS[0];
-
 let stream = null;
 let audioCtx = null;
 let analyser = null;
@@ -112,11 +123,7 @@ function showStep(stepName) {
 }
 
 function updateBadge() {
-  if (profile.name) {
-    badgeUser.textContent = `${profile.name} · ${profile.link || "sin link"}`;
-  } else {
-    badgeUser.textContent = "Sin perfil";
-  }
+  badgeUser.textContent = profile.name ? `${profile.name} · ${profile.link || "sin link"}` : "Sin perfil";
 }
 
 function renderAvatarChoices() {
@@ -127,10 +134,7 @@ function renderAvatarChoices() {
     btn.type = "button";
     btn.className = "choice-btn" + (selectedAvatar.id === av.id ? " selected" : "");
     btn.textContent = av.name;
-    btn.addEventListener("click", () => {
-      selectedAvatar = av;
-      renderAvatarChoices();
-    });
+    btn.addEventListener("click", () => { selectedAvatar = av; renderAvatarChoices(); });
     avatarGrid.appendChild(btn);
   });
 }
@@ -142,14 +146,11 @@ function renderBgChoices() {
     btn.type = "button";
     btn.className = "choice-btn" + (selectedBg.id === bg.id ? " selected" : "");
     btn.textContent = bg.name;
-    btn.addEventListener("click", () => {
-      selectedBg = bg;
-      renderBgChoices();
-    });
+    btn.addEventListener("click", () => { selectedBg = bg; renderBgChoices(); });
     bgGrid.appendChild(btn);
   });
-  }
-  inputName.value = profile.name || "";
+   }
+inputName.value = profile.name || "";
 inputLink.value = profile.link || "";
 updateBadge();
 renderAvatarChoices();
@@ -158,10 +159,7 @@ renderBgChoices();
 btnGoSetup.addEventListener("click", () => {
   const nameVal = inputName.value.trim();
   const linkVal = inputLink.value.trim();
-  if (!nameVal) {
-    alert("Poné un nombre o apodo para continuar.");
-    return;
-  }
+  if (!nameVal) { alert("Poné un nombre o apodo para continuar."); return; }
   profile = { name: nameVal, link: linkVal };
   localStorage.setItem("fsf_profile", JSON.stringify(profile));
   updateBadge();
@@ -183,12 +181,10 @@ tabFemale.addEventListener("click", () => {
 });
 
 btnBackProfile.addEventListener("click", () => showStep("profile"));
-
 btnEnterStudio.addEventListener("click", () => {
   studioMeta.textContent = `${selectedAvatar.name} | ${selectedBg.name}`;
   showStep("studio");
 });
-
 btnEditSetup.addEventListener("click", () => {
   renderAvatarChoices();
   renderBgChoices();
@@ -220,11 +216,14 @@ async function saveVideoToApp(blob) {
     createdAt: new Date().toLocaleString("es-UY"),
     blob
   });
-  await new Promise((res, rej) => {
-    tx.oncomplete = res;
-    tx.onerror = () => rej(tx.error);
-  });
+  await new Promise((res, rej) => { tx.oncomplete = res; tx.onerror = () => rej(tx.error); });
   await loadFeed();
+}
+
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, (m) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  }[m]));
 }
 
 async function loadFeed() {
@@ -255,20 +254,11 @@ async function loadFeed() {
   };
 }
 
-function escapeHtml(str) {
-  return String(str).replace(/[&<>"']/g, (m) => ({
-    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
-  }[m]));
-}
-
 loadFeed();
 
 btnStart.addEventListener("click", async () => {
   try {
-    stream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: "user" },
-      audio: true
-    });
+    stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: true });
     video.srcObject = stream;
     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     const src = audioCtx.createMediaStreamSource(stream);
@@ -276,7 +266,6 @@ btnStart.addEventListener("click", async () => {
     analyser.fftSize = 256;
     src.connect(analyser);
     dataArray = new Uint8Array(analyser.frequencyBinCount);
-
     btnStart.disabled = true;
     btnRec.disabled = false;
     statusEl.textContent = "Cámara y micrófono activos.";
@@ -293,68 +282,57 @@ function getVolume() {
   for (let i = 0; i < dataArray.length; i++) total += dataArray[i];
   return total / dataArray.length;
       }
-  function drawBackground(bg) {
+                    function drawRealisticMouth(av, vol) {
+  const mx = av.mouthX ?? 0;
+  const my = av.mouthY ?? 54;
+  const mw = av.mouthWidth ?? 14;
+  const maxOpen = av.mouthMaxOpen ?? 6.5;
+  const lipColor = av.lipColor ?? "rgba(186, 118, 102, 0.58)";
+  const normVol = Math.max(0, (vol - 11) / 42);
+  const openH = Math.min(maxOpen, normVol * maxOpen);
+  const h = Math.max(1.2, openH);
+  const wSpread = mw + openH * 0.45;
+
+  ctx.save();
+  ctx.translate(mx, my);
+  if (openH > 0.7) {
+    ctx.fillStyle = "rgba(48, 14, 16, 0.76)";
+    ctx.beginPath();
+    ctx.moveTo(-wSpread, 0);
+    ctx.quadraticCurveTo(0, -h * 0.85, wSpread, 0);
+    ctx.quadraticCurveTo(0, h * 1.15, -wSpread, 0);
+    ctx.fill();
+  }
+  ctx.strokeStyle = lipColor;
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(-wSpread * 0.9, h * 0.25);
+  ctx.quadraticCurveTo(0, h * 1.35, wSpread * 0.9, h * 0.25);
+  ctx.stroke();
+  ctx.restore();
+}
+
+function drawBackground(bg) {
   const w = canvas.width;
   const h = canvas.height;
-  const horizon = h * 0.64;
+  const bgEntry = loadedBgImages[bg.id];
+  if (bgEntry && bgEntry.ready) { ctx.drawImage(bgEntry.img, 0, 0, w, h); return; }
 
+  const horizon = h * 0.64;
   if (bg.type === "beach") {
     const sky = ctx.createLinearGradient(0, 0, 0, horizon);
-    sky.addColorStop(0, "#1e3a8a");
-    sky.addColorStop(0.55, "#ea580c");
-    sky.addColorStop(1, "#fde047");
-    ctx.fillStyle = sky;
-    ctx.fillRect(0, 0, w, horizon);
-
-    ctx.fillStyle = "#fef08a";
-    ctx.beginPath();
-    ctx.arc(w * 0.72, horizon * 0.72, 34, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.fillStyle = "#0284c7";
-    ctx.fillRect(0, horizon, w, h * 0.14);
-    ctx.fillStyle = "#e7c89b";
-    ctx.fillRect(0, horizon + h * 0.14, w, h * 0.22);
+    sky.addColorStop(0, "#1e3a8a"); sky.addColorStop(0.55, "#ea580c"); sky.addColorStop(1, "#fde047");
+    ctx.fillStyle = sky; ctx.fillRect(0, 0, w, horizon);
+    ctx.fillStyle = "#fef08a"; ctx.beginPath(); ctx.arc(w * 0.72, horizon * 0.72, 34, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = "#0284c7"; ctx.fillRect(0, horizon, w, h * 0.14);
+    ctx.fillStyle = "#e7c89b"; ctx.fillRect(0, horizon + h * 0.14, w, h * 0.22);
   } else if (bg.type === "fireplace") {
-    ctx.fillStyle = "#2b1d16";
-    ctx.fillRect(0, 0, w, h);
-    ctx.fillStyle = "#3f2a20";
-    ctx.fillRect(0, horizon, w, h - horizon);
-
-    const fx = w * 0.82;
-    const fy = horizon + 15;
-    ctx.fillStyle = "#18181b";
-    ctx.fillRect(fx - 38, fy - 75, 76, 85);
-    ctx.fillStyle = "#09090b";
-    ctx.fillRect(fx - 24, fy - 42, 48, 36);
-
-    const flicker = Math.sin(tick * 0.25) * 5;
-    ctx.fillStyle = "#f97316";
-    ctx.beginPath();
-    ctx.ellipse(fx, fy - 20, 14, 14 + flicker * 0.5, 0, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = "#facc15";
-    ctx.beginPath();
-    ctx.ellipse(fx, fy - 16, 7, 9 + flicker * 0.3, 0, 0, Math.PI * 2);
-    ctx.fill();
+    ctx.fillStyle = "#2b1d16"; ctx.fillRect(0, 0, w, h);
+    ctx.fillStyle = "#3f2a20"; ctx.fillRect(0, horizon, w, h - horizon);
   } else {
-    const palettes = {
-      studio: ["#0f172a", "#1e293b", "#111827"],
-      library: ["#1c1917", "#292524", "#14110f"],
-      terrace: ["#1d4ed8", "#93c5fd", "#334155"],
-      rain: ["#1e293b", "#334155", "#0f172a"],
-      cafe: ["#291d18", "#452c21", "#1c1410"],
-      mountain: ["#0f172a", "#64748b", "#1e293b"],
-      neon: ["#18092b", "#4c1d95", "#090510"],
-      desert: ["#9a3412", "#fdba74", "#7c2d12"]
-    };
-    const p = palettes[bg.type] || palettes.studio;
     const g = ctx.createLinearGradient(0, 0, 0, h);
-    g.addColorStop(0, p[0]);
-    g.addColorStop(0.65, p[1]);
-    g.addColorStop(1, p[2]);
-    ctx.fillStyle = g;
-    ctx.fillRect(0, 0, w, h);
+    g.addColorStop(0, "#291d18"); g.addColorStop(1, "#14110f");
+    ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
   }
 }
 
@@ -366,164 +344,26 @@ function drawAvatar(av, vol, isBlinking) {
 
   const imgEntry = loadedImages[av.id];
   if (imgEntry && imgEntry.ready) {
-    const drawW = 240;
-    const drawH = 320;
+    const drawW = 240, drawH = 320;
     const x = w * 0.46 - drawW / 2;
     const y = h - drawH + 14 + headBob;
-
-    const mx = av.mouthX ?? 0;
-    const my = av.mouthY ?? 54;
-    const mw = av.mouthWidth ?? 13;
-    const maxOpen = av.mouthMaxOpen ?? 9;
-
     ctx.save();
     ctx.translate(x + drawW / 2, y + drawH / 2);
     ctx.rotate(tilt);
     ctx.drawImage(imgEntry.img, -drawW / 2, -drawH / 2, drawW, drawH);
-
-    const normVol = Math.max(0, (vol - 10) / 45);
-    const openH = Math.min(maxOpen, normVol * maxOpen);
-
-    if (openH > 0.8) {
-      const mouthGrad = ctx.createRadialGradient(mx, my, 1, mx, my, Math.max(mw, openH * 1.4));
-      mouthGrad.addColorStop(0, "rgba(38, 10, 12, 0.92)");
-      mouthGrad.addColorStop(0.75, "rgba(88, 24, 28, 0.85)");
-      mouthGrad.addColorStop(1, "rgba(88, 24, 28, 0)");
-
-      ctx.fillStyle = mouthGrad;
-      ctx.beginPath();
-      ctx.ellipse(mx, my, mw, openH, 0, 0, Math.PI * 2);
-      ctx.fill();
-
-      ctx.strokeStyle = "rgba(215, 145, 125, 0.55)";
-      ctx.lineWidth = 1.6;
-      ctx.beginPath();
-      ctx.ellipse(mx, my + openH * 0.35, mw * 0.88, openH * 0.65, 0, 0, Math.PI);
-      ctx.stroke();
-    }
-
+    drawRealisticMouth(av, vol);
     ctx.restore();
     return;
   }
 
-  const cx = w * 0.44;
-  const cy = h * 0.54 + headBob;
-
-  if (av.style === "long" || av.style === "curly" || av.style === "ponytail") {
-    ctx.fillStyle = av.hair;
-    ctx.beginPath();
-    ctx.roundRect(cx - 84, cy - 30, 168, 175, 45);
-    ctx.fill();
+  const cx = w * 0.44, cy = h * 0.54 + headBob;
+  ctx.fillStyle = av.shirt; ctx.beginPath(); ctx.roundRect(cx - 92, cy + 88, 184, 140, 48); ctx.fill();
+  ctx.fillStyle = av.skin; ctx.beginPath(); ctx.ellipse(cx, cy, 86, 94, 0, 0, Math.PI * 2); ctx.fill();
+  if (!isBlinking) {
+    ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.arc(cx - 35, cy + 4, 15, 0, Math.PI * 2); ctx.arc(cx + 35, cy + 4, 15, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = "#111"; ctx.beginPath(); ctx.arc(cx - 35, cy + 5, 9, 0, Math.PI * 2); ctx.arc(cx + 35, cy + 5, 9, 0, Math.PI * 2); ctx.fill();
   }
-
-  ctx.fillStyle = av.shirt;
-  ctx.beginPath();
-  ctx.roundRect(cx - 92, cy + 88, 184, 140, 48);
-  ctx.fill();
-
-  ctx.fillStyle = av.skin;
-  ctx.fillRect(cx - 22, cy + 68, 44, 30);
-
-  ctx.fillStyle = av.skin;
-  ctx.beginPath();
-  ctx.ellipse(cx, cy, 86, 94, 0, 0, Math.PI * 2);
-  ctx.fill();
-
-  ctx.fillStyle = "rgba(0,0,0,0.10)";
-  ctx.beginPath();
-  ctx.ellipse(cx + 38, cy + 4, 46, 86, 0, -Math.PI / 2, Math.PI / 2);
-  ctx.fill();
-
-  if (av.blush) {
-    ctx.fillStyle = "rgba(244, 63, 94, 0.28)";
-    ctx.beginPath();
-    ctx.ellipse(cx - 46, cy + 20, 14, 7, 0, 0, Math.PI * 2);
-    ctx.ellipse(cx + 46, cy + 20, 14, 7, 0, 0, Math.PI * 2);
-    ctx.fill();
-  }
-
-  if (isBlinking) {
-    ctx.strokeStyle = "#111827";
-    ctx.lineWidth = 4;
-    ctx.beginPath();
-    ctx.moveTo(cx - 50, cy + 4);
-    ctx.lineTo(cx - 20, cy + 4);
-    ctx.moveTo(cx + 20, cy + 4);
-    ctx.lineTo(cx + 50, cy + 4);
-    ctx.stroke();
-  } else {
-    ctx.fillStyle = "#ffffff";
-    ctx.beginPath();
-    ctx.ellipse(cx - 35, cy + 4, 17, 19, 0, 0, Math.PI * 2);
-    ctx.ellipse(cx + 35, cy + 4, 17, 19, 0, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.fillStyle = "#111827";
-    ctx.beginPath();
-    ctx.arc(cx - 35, cy + 5, 11, 0, Math.PI * 2);
-    ctx.arc(cx + 35, cy + 5, 11, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.fillStyle = "#ffffff";
-    ctx.beginPath();
-    ctx.arc(cx - 39, cy, 4, 0, Math.PI * 2);
-    ctx.arc(cx + 31, cy, 4, 0, Math.PI * 2);
-    ctx.fill();
-  }
-
-  ctx.strokeStyle = av.hair;
-  ctx.lineWidth = 4.5;
-  ctx.beginPath();
-  ctx.moveTo(cx - 52, cy - 22);
-  ctx.lineTo(cx - 18, cy - 18);
-  ctx.moveTo(cx + 18, cy - 18);
-  ctx.lineTo(cx + 52, cy - 22);
-  ctx.stroke();
-
-  ctx.strokeStyle = "rgba(0,0,0,0.35)";
-  ctx.lineWidth = 2.5;
-  ctx.beginPath();
-  ctx.arc(cx, cy + 18, 5, 0.2, Math.PI - 0.2);
-  ctx.stroke();
-
-  if (av.beard) {
-    ctx.fillStyle = av.hair;
-    ctx.globalAlpha = 0.72;
-    ctx.beginPath();
-    ctx.arc(cx, cy + 32, 68, 0.15, Math.PI - 0.15);
-    ctx.fill();
-    ctx.globalAlpha = 1;
-  }
-
-  const mouthOpen = Math.min(24, Math.max(3, vol * 0.65));
-  ctx.fillStyle = "#7f1d1d";
-  ctx.beginPath();
-  ctx.ellipse(cx, cy + 48, 15 + mouthOpen * 0.25, mouthOpen, 0, 0, Math.PI * 2);
-  ctx.fill();
-
-  if (av.glasses) {
-    ctx.strokeStyle = av.accent;
-    ctx.lineWidth = 3;
-    ctx.strokeRect(cx - 56, cy - 11, 38, 28);
-    ctx.strokeRect(cx + 18, cy - 11, 38, 28);
-    ctx.beginPath();
-    ctx.moveTo(cx - 18, cy + 3);
-    ctx.lineTo(cx + 18, cy + 3);
-    ctx.stroke();
-  }
-
-  if (av.style === "cap") {
-    ctx.fillStyle = av.accent;
-    ctx.beginPath();
-    ctx.arc(cx, cy - 32, 84, Math.PI, Math.PI * 2);
-    ctx.fill();
-    ctx.fillRect(cx - 88, cy - 34, 176, 14);
-  } else {
-    ctx.fillStyle = av.hair;
-    ctx.beginPath();
-    ctx.arc(cx, cy - 26, 90, Math.PI * 0.95, Math.PI * 2.05);
-    ctx.fill();
-  }
+  ctx.fillStyle = av.hair; ctx.beginPath(); ctx.arc(cx, cy - 26, 90, Math.PI * 0.95, Math.PI * 2.05); ctx.fill();
 }
 
 function loop() {
@@ -540,29 +380,21 @@ btnRec.addEventListener("click", () => {
   const canvasStream = canvas.captureStream(30);
   const audioTracks = stream ? stream.getAudioTracks() : [];
   if (audioTracks.length > 0) canvasStream.addTrack(audioTracks[0]);
-
   mediaRecorder = new MediaRecorder(canvasStream, { mimeType: "video/webm" });
-  mediaRecorder.ondataavailable = (e) => {
-    if (e.data.size > 0) recordedChunks.push(e.data);
-  };
+  mediaRecorder.ondataavailable = (e) => { if (e.data.size > 0) recordedChunks.push(e.data); };
   mediaRecorder.onstop = async () => {
     const blob = new Blob(recordedChunks, { type: "video/webm" });
     statusEl.textContent = "Subiendo video a la app...";
     await saveVideoToApp(blob);
     statusEl.textContent = "Video subido y guardado en tu muro.";
   };
-
   mediaRecorder.start();
-  btnRec.disabled = true;
-  btnStop.disabled = false;
+  btnRec.disabled = true; btnStop.disabled = false;
   statusEl.textContent = "Grabando...";
 });
 
 btnStop.addEventListener("click", () => {
-  if (mediaRecorder && mediaRecorder.state !== "inactive") {
-    mediaRecorder.stop();
-  }
-  btnRec.disabled = false;
-  btnStop.disabled = true;
+  if (mediaRecorder && mediaRecorder.state !== "inactive") mediaRecorder.stop();
+  btnRec.disabled = false; btnStop.disabled = true;
 });
       
